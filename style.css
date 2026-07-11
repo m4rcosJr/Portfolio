@@ -417,6 +417,7 @@ footer .line-footer {
 footer .line-footer p i {
     color: #1c1cc2;
     font-size: 22px;
+    margin-right: 8px;
 }
 
 footer .line-footer p a {
