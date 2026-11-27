@@ -5,10 +5,15 @@
       Marcos Junior
     </a>
     <ul class="flex gap-6 text-sm text-ink-2">
-      <li><a href="#sobre" class="transition-colors duration-150 ease-soft hover:text-ink">Sobre</a></li>
-      <li class="hidden sm:list-item"><a href="#tecnologias" class="transition-colors duration-150 ease-soft hover:text-ink">Tecnologias</a></li>
-      <li><a href="#projetos" class="transition-colors duration-150 ease-soft hover:text-ink">Projetos</a></li>
-      <li><a href="#contato" class="transition-colors duration-150 ease-soft hover:text-ink">Contato</a></li>
+      @for (s of secoes; track s.id) {
+        <li [class]="s.soDesktop ? 'hidden sm:list-item' : ''">
+          <a [href]="'#' + s.id"
+             [attr.aria-current]="ativa() === s.id ? 'true' : null"
+             class="relative py-1 transition-colors duration-150 ease-soft hover:text-ink aria-[current=true]:text-ink after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-cyan after:transition-transform after:duration-300 after:ease-soft aria-[current=true]:after:scale-x-100">
+            {{ s.nome }}
+          </a>
+        </li>
+      }
     </ul>
   </nav>
 </header>
