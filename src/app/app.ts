@@ -5,10 +5,11 @@ import { Sobre } from './components/sobre/sobre';
 import { Tecnologias } from './components/tecnologias/tecnologias';
 import { Projetos } from './components/projetos/projetos';
 import { Contato } from './components/contato/contato';
+import { Reveal } from './shared/reveal';
 
 @Component({
   selector: 'app-root',
-  imports: [Header, Hero, Sobre, Tecnologias, Projetos, Contato],
+  imports: [Header, Hero, Sobre, Tecnologias, Projetos, Contato, Reveal],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

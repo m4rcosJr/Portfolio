@@ -1,4 +1,5 @@
 import { Component, ElementRef, signal, viewChild } from '@angular/core';
+import { Reveal } from '../../shared/reveal';
 
 interface Projeto {
   slug: string;
@@ -13,6 +14,7 @@ interface Projeto {
 }
 
 @Component({
+  imports: [Reveal],
   selector: 'app-projetos',
   templateUrl: './projetos.html',
   styleUrl: './projetos.css',
