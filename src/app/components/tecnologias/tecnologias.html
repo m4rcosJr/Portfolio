@@ -1,0 +1,13 @@
+<section id="tecnologias" class="mx-auto max-w-5xl px-6 py-20 md:py-24">
+  <div class="grid gap-6 md:grid-cols-[10rem_1fr] md:gap-8">
+    <h2 class="text-xl font-medium">Tecnologias</h2>
+    <dl class="border-t border-line">
+      @for (g of grupos; track g.titulo) {
+        <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[10rem_1fr] sm:gap-6">
+          <dt class="text-sm text-ink-3">{{ g.titulo }}</dt>
+          <dd class="font-mono text-sm text-ink-2">{{ g.itens.join(', ') }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>

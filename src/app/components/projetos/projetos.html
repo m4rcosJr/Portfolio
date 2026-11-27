@@ -1,0 +1,39 @@
+<section id="projetos" class="mx-auto max-w-5xl px-6 py-20 md:py-24">
+  <h2 class="text-2xl font-medium md:text-3xl">Projetos</h2>
+
+  <article class="mt-10 grid gap-8 lg:grid-cols-5 lg:items-center">
+    @if (destaque.imagem) {
+      <img [src]="destaque.imagem" [alt]="'Captura de tela do ' + destaque.nome"
+           class="rounded-xl border border-line lg:col-span-3" />
+    }
+    <div [class]="destaque.imagem ? 'lg:col-span-2' : 'lg:col-span-5 max-w-2xl'">
+      <h3 class="text-xl font-medium">{{ destaque.nome }}</h3>
+      <p class="mt-1 text-sm text-ink-3">{{ destaque.contexto }}</p>
+      <p class="mt-4 leading-7 text-ink-2">{{ destaque.descricao }}</p>
+      <p class="mt-4 font-mono text-xs leading-5 text-ink-3">{{ destaque.tecnologias.join(', ') }}</p>
+      @if (destaque.link) {
+        <a [href]="destaque.link" target="_blank" rel="noopener"
+           class="mt-5 inline-block text-sm text-signal underline-offset-4 hover:underline">{{ destaque.linkTexto }}</a>
+      }
+    </div>
+  </article>
+
+  <ul class="mt-16 divide-y divide-line border-y border-line">
+    @for (p of demais; track p.nome) {
+      <li class="grid gap-3 py-6 md:grid-cols-[12rem_1fr_auto] md:gap-8">
+        <div>
+          <h3 class="font-medium">{{ p.nome }}</h3>
+          <p class="text-sm text-ink-3">{{ p.contexto }}</p>
+        </div>
+        <div>
+          <p class="leading-7 text-ink-2">{{ p.descricao }}</p>
+          <p class="mt-2 font-mono text-xs leading-5 text-ink-3">{{ p.tecnologias.join(', ') }}</p>
+        </div>
+        @if (p.link) {
+          <a [href]="p.link" target="_blank" rel="noopener"
+             class="text-sm text-signal underline-offset-4 hover:underline md:self-start">{{ p.linkTexto }}</a>
+        }
+      </li>
+    }
+  </ul>
+</section>
