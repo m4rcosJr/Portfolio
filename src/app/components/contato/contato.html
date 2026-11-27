@@ -1,18 +1,102 @@
 <section id="contato" class="mx-auto max-w-5xl px-6 py-20 md:py-24">
   <div class="grid gap-6 md:grid-cols-[10rem_1fr] md:gap-8">
     <h2 class="text-xl font-medium">Contato</h2>
-    <div class="max-w-2xl">
-      <p class="leading-7 text-ink-2">O e-mail é o caminho mais rápido. GitHub e LinkedIn têm o resto.</p>
-      <ul class="mt-6 space-y-2 text-sm">
-        <li><a href="mailto:marcosfsjr10@gmail.com" class="text-cyan underline-offset-4 hover:underline">marcosfsjr10@gmail.com</a></li>
-        <li><a href="https://github.com/m4rcosJr" target="_blank" rel="noopener"
-               class="text-ink-2 underline-offset-4 transition-colors duration-150 ease-soft hover:text-ink hover:underline">github.com/m4rcosJr</a></li>
-        <li><a href="https://www.linkedin.com/in/marcos-juniordev" target="_blank" rel="noopener"
-               class="text-ink-2 underline-offset-4 transition-colors duration-150 ease-soft hover:text-ink hover:underline">linkedin.com/in/marcos-juniordev</a></li>
-      </ul>
+
+    <div>
+      <p class="max-w-xl text-lg leading-7 text-ink-2">
+        Tem um site ou um sistema em mente? Conte o que você precisa e eu respondo no e-mail que você deixar aqui.
+      </p>
+
+      <div class="mt-10 grid gap-12 lg:grid-cols-[1fr_15rem]">
+        @if (estado() === 'enviado') {
+          <div role="status" class="self-start rounded-xl border border-line bg-card p-6">
+            <p class="font-medium">Mensagem enviada.</p>
+            <p class="mt-2 text-ink-2">Chegou na minha caixa de entrada. Respondo no e-mail que você informou.</p>
+            <button type="button" (click)="novaMensagem()"
+                    class="mt-5 text-sm text-cyan underline-offset-4 hover:underline">
+              Escrever outra mensagem
+            </button>
+          </div>
+        } @else {
+          <form [formGroup]="form" (ngSubmit)="enviar()" novalidate class="space-y-5">
+            <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+              <label>Não preencha este campo
+                <input type="text" formControlName="site" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
+
+            <div>
+              <label for="campo-nome" class="text-sm text-ink-2">Nome</label>
+              <input id="campo-nome" type="text" formControlName="nome" autocomplete="name"
+                     [attr.aria-invalid]="erro('nome') ? 'true' : null"
+                     [attr.aria-describedby]="erro('nome') ? 'erro-nome' : null"
+                     class="mt-1.5 w-full rounded-lg border border-line bg-card px-4 py-3 text-ink transition-colors duration-150 ease-soft hover:border-ink-3 aria-[invalid=true]:border-red-400/70" />
+              @if (erro('nome'); as e) {
+                <p id="erro-nome" class="mt-1.5 text-sm text-red-300">{{ e }}</p>
+              }
+            </div>
+
+            <div>
+              <label for="campo-email" class="text-sm text-ink-2">E-mail</label>
+              <input id="campo-email" type="email" formControlName="email" autocomplete="email"
+                     [attr.aria-invalid]="erro('email') ? 'true' : null"
+                     [attr.aria-describedby]="erro('email') ? 'erro-email' : null"
+                     class="mt-1.5 w-full rounded-lg border border-line bg-card px-4 py-3 text-ink transition-colors duration-150 ease-soft hover:border-ink-3 aria-[invalid=true]:border-red-400/70" />
+              @if (erro('email'); as e) {
+                <p id="erro-email" class="mt-1.5 text-sm text-red-300">{{ e }}</p>
+              }
+            </div>
+
+            <div>
+              <label for="campo-mensagem" class="text-sm text-ink-2">Mensagem</label>
+              <textarea id="campo-mensagem" formControlName="mensagem" rows="5"
+                        [attr.aria-invalid]="erro('mensagem') ? 'true' : null"
+                        [attr.aria-describedby]="erro('mensagem') ? 'erro-mensagem' : null"
+                        class="mt-1.5 min-h-32 w-full resize-y rounded-lg border border-line bg-card px-4 py-3 text-ink transition-colors duration-150 ease-soft hover:border-ink-3 aria-[invalid=true]:border-red-400/70"></textarea>
+              @if (erro('mensagem'); as e) {
+                <p id="erro-mensagem" class="mt-1.5 text-sm text-red-300">{{ e }}</p>
+              }
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4">
+              <button type="submit" [disabled]="estado() === 'enviando'"
+                      class="rounded-lg bg-ink px-5 py-3 text-sm font-medium text-page transition-colors duration-150 ease-soft hover:bg-white disabled:cursor-wait disabled:opacity-60">
+                {{ estado() === 'enviando' ? 'Enviando…' : 'Enviar mensagem' }}
+              </button>
+              <p role="status" class="text-sm text-red-300">
+                @if (estado() === 'erro') {
+                  Não consegui enviar agora. Tente de novo ou escreva direto para
+                  <a href="mailto:marcosfsjr10@gmail.com" class="underline underline-offset-4">marcosfsjr10@gmail.com</a>.
+                }
+              </p>
+            </div>
+          </form>
+        }
+
+        <div>
+          <p class="text-sm text-ink-3">Prefere escrever direto?</p>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li>
+              <a href="mailto:marcosfsjr10@gmail.com"
+                 class="break-all text-cyan underline-offset-4 hover:underline">marcosfsjr10@gmail.com</a>
+            </li>
+            <li>
+              <a href="https://github.com/m4rcosJr" target="_blank" rel="noopener"
+                 class="text-ink-2 underline-offset-4 transition-colors duration-150 ease-soft hover:text-ink hover:underline">
+                GitHub<span class="sr-only"> (abre em nova aba)</span></a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/marcos-juniordev/" target="_blank" rel="noopener"
+                 class="text-ink-2 underline-offset-4 transition-colors duration-150 ease-soft hover:text-ink hover:underline">
+                LinkedIn<span class="sr-only"> (abre em nova aba)</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
 <footer class="border-t border-line py-6">
-  <p class="mx-auto max-w-5xl px-6 font-mono text-xs text-ink-3">© 2026 Marcos Junior</p>
+  <p class="mx-auto max-w-5xl px-6 font-mono text-xs text-ink-3">© 2026 Marcos Junior. Feito com Angular e Tailwind CSS.</p>
 </footer>

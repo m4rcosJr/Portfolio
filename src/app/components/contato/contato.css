@@ -1,0 +1,6 @@
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-ink);
+  box-shadow: 0 0 0 1000px var(--color-card) inset;
+  caret-color: var(--color-ink);
+}
