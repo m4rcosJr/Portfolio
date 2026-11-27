@@ -1,28 +1,38 @@
-<section id="inicio" class="mx-auto max-w-5xl px-6 pt-16 pb-20 md:pt-20 md:pb-24">
-  <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
-    <div>
-      <h1 class="text-4xl font-medium leading-[1.08] md:text-5xl md:leading-[1.05] md:tracking-[-0.03em]">
-        Transformo problemas reais em software que funciona
-      </h1>
-      <p class="mt-6 max-w-xl text-lg leading-7 text-ink-2">
-        Sites e sistemas que já estão no ar para clientes reais, do banco de dados à interface
-      </p>
-      <div class="mt-10 flex items-center gap-3">
-        <a href="#projetos"
-           class="rounded-lg bg-ink px-5 py-3 text-sm font-medium text-page transition-colors duration-150 ease-soft hover:bg-white">Ver projetos</a>
-        <a href="#contato"
-           class="rounded-lg border border-line bg-raised px-5 py-3 text-sm text-ink transition-colors duration-150 ease-soft hover:border-ink-3">Contato</a>
-      </div>
-    </div>
+<section id="inicio" class="relative isolate overflow-hidden">
+  <div class="fundo" aria-hidden="true">
+    <span class="faixa"></span>
+    <span class="linha l1"></span>
+    <span class="linha l2"></span>
+    <span class="linha l3"></span>
+  </div>
 
-    <div class="foto relative isolate mx-auto w-64 sm:w-72 lg:w-full lg:max-w-[26rem]">
-      <div aria-hidden="true" class="absolute inset-[10%] -z-10 rounded-full bg-blue/25 blur-3xl"></div>
-      <img src="/Portfolio/public/images/marcos-hero-800.webp"
-           srcset="images/marcos-hero-480.webp 480w, images/marcos-hero-800.webp 800w"
-           sizes="(min-width: 1024px) 26rem, 18rem"
-           width="800" height="958" fetchpriority="high" decoding="async"
-           alt="Retrato de Marcos Junior, de camisa preta e braços cruzados, em um hexágono azul"
-           class="block h-auto w-full" />
+  <div class="mx-auto max-w-5xl px-6 pt-16 pb-20 md:pt-20 md:pb-24">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
+      <div>
+        <h1 appReveal
+            class="text-4xl font-medium leading-[1.08] md:text-5xl md:leading-[1.05] md:tracking-[-0.03em]">
+          Transformo problemas reais em software que funciona
+        </h1>
+        <p appReveal [revealDelay]="120" class="mt-6 max-w-xl text-lg leading-7 text-ink-2">
+          Sites e sistemas que já estão no ar para clientes reais, do banco de dados à interface
+        </p>
+        <div appReveal [revealDelay]="240" class="mt-10 flex items-center gap-3">
+          <a href="#projetos"
+             class="rounded-lg bg-ink px-5 py-3 text-sm font-medium text-page transition-colors duration-150 ease-soft hover:bg-white">Ver projetos</a>
+          <a href="#contato"
+             class="rounded-lg border border-line bg-raised px-5 py-3 text-sm text-ink transition-colors duration-150 ease-soft hover:border-ink-3">Contato</a>
+        </div>
+      </div>
+
+      <div class="foto relative isolate mx-auto w-64 sm:w-72 lg:w-full lg:max-w-[26rem]">
+        <div aria-hidden="true" class="absolute inset-[10%] -z-10 rounded-full bg-blue/25 blur-3xl"></div>
+        <img src="images/marcos-hero-800.webp"
+             srcset="images/marcos-hero-480.webp 480w, images/marcos-hero-800.webp 800w"
+             sizes="(min-width: 1024px) 26rem, 18rem"
+             width="800" height="958" fetchpriority="high" decoding="async"
+             alt="Retrato de Marcos Junior, de camisa preta e braços cruzados, em um hexágono azul"
+             class="block h-auto w-full" />
+      </div>
     </div>
   </div>
 </section>

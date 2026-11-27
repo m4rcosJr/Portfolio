@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { Reveal } from '../../shared/reveal';
 
 @Component({
-  imports: [],
   selector: 'app-hero',
-  styleUrl: './hero.css',
+  imports: [Reveal],
   templateUrl: './hero.html',
+  styleUrl: './hero.css',
 })
 export class Hero {}
