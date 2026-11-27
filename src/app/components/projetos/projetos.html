@@ -1,39 +1,63 @@
-<section id="projetos" class="mx-auto max-w-5xl px-6 py-20 md:py-24">
-  <h2 class="text-2xl font-medium md:text-3xl">Projetos</h2>
+<section id="projetos" class="mx-auto max-w-6xl px-6 py-20 md:py-24">
+  <h2 class="text-3xl font-medium md:text-4xl md:tracking-[-0.02em]">Projetos</h2>
+  <p class="mt-3 max-w-xl text-ink-2">Clique em um projeto para ver o site inteiro sem sair daqui.</p>
 
-  <article class="mt-10 grid gap-8 lg:grid-cols-5 lg:items-center">
-    @if (destaque.imagem) {
-      <img [src]="destaque.imagem" [alt]="'Captura de tela do ' + destaque.nome"
-           class="rounded-xl border border-line lg:col-span-3" />
-    }
-    <div [class]="destaque.imagem ? 'lg:col-span-2' : 'lg:col-span-5 max-w-2xl'">
-      <h3 class="text-xl font-medium">{{ destaque.nome }}</h3>
-      <p class="mt-1 text-sm text-ink-3">{{ destaque.contexto }}</p>
-      <p class="mt-4 leading-7 text-ink-2">{{ destaque.descricao }}</p>
-      <p class="mt-4 font-mono text-xs leading-5 text-ink-3">{{ destaque.tecnologias.join(', ') }}</p>
-      @if (destaque.link) {
-        <a [href]="destaque.link" target="_blank" rel="noopener"
-           class="mt-5 inline-block text-sm text-signal underline-offset-4 hover:underline">{{ destaque.linkTexto }}</a>
-      }
-    </div>
-  </article>
-
-  <ul class="mt-16 divide-y divide-line border-y border-line">
-    @for (p of demais; track p.nome) {
-      <li class="grid gap-3 py-6 md:grid-cols-[12rem_1fr_auto] md:gap-8">
-        <div>
-          <h3 class="font-medium">{{ p.nome }}</h3>
-          <p class="text-sm text-ink-3">{{ p.contexto }}</p>
+  <div class="mt-10 grid gap-6 md:grid-cols-2">
+    @for (p of projetos; track p.slug) {
+      <article
+        class="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-card transition-[border-color,translate] duration-300 ease-soft hover:-translate-y-0.5 hover:border-blue/60 has-[:focus-visible]:border-cyan">
+        <div class="preview aspect-[16/10] overflow-hidden border-b border-line bg-raised">
+          <img [src]="p.full" alt="" [attr.width]="p.largura" [attr.height]="p.altura"
+               loading="lazy" decoding="async" class="block h-auto w-full" />
         </div>
-        <div>
-          <p class="leading-7 text-ink-2">{{ p.descricao }}</p>
-          <p class="mt-2 font-mono text-xs leading-5 text-ink-3">{{ p.tecnologias.join(', ') }}</p>
+        <div class="flex flex-1 flex-col p-6">
+          <h3 class="text-xl font-medium">{{ p.nome }}</h3>
+          <p class="mt-1 text-sm text-ink-3">{{ p.contexto }}</p>
+          <p class="mt-4 leading-7 text-ink-2">{{ p.descricao }}</p>
+          <p class="mt-4 font-mono text-xs leading-5 text-ink-3">{{ p.tecnologias.join(', ') }}</p>
+          <div class="mt-auto flex items-center justify-between gap-4 pt-6">
+            <button type="button" (click)="abrir(p)"
+                    class="text-sm font-medium text-cyan after:absolute after:inset-0">
+              Ver site completo<span class="sr-only">: {{ p.nome }}</span>
+            </button>
+            <a [href]="p.url" target="_blank" rel="noopener"
+               class="relative z-10 text-sm text-ink-2 transition-colors duration-150 ease-soft hover:text-ink">
+              Abrir ao vivo<span class="sr-only"> (abre em nova aba)</span>
+            </a>
+          </div>
         </div>
-        @if (p.link) {
-          <a [href]="p.link" target="_blank" rel="noopener"
-             class="text-sm text-signal underline-offset-4 hover:underline md:self-start">{{ p.linkTexto }}</a>
-        }
-      </li>
+      </article>
     }
-  </ul>
+  </div>
 </section>
+
+<dialog #viewer class="viewer m-auto h-[90vh] w-[min(1100px,94vw)] overflow-hidden rounded-xl border border-line bg-page p-0 text-ink"
+        aria-labelledby="viewer-titulo" (close)="aoFechar()" (click)="aoClicarFora($event)">
+  @if (aberto(); as p) {
+    <div class="flex h-full flex-col">
+      <header class="flex items-center gap-3 border-b border-line px-4 py-3">
+        <h3 id="viewer-titulo" class="font-medium">{{ p.nome }}</h3>
+        <span class="hidden min-w-0 flex-1 truncate rounded-md bg-card px-3 py-1 font-mono text-xs text-ink-3 sm:block">{{ p.url }}</span>
+        <a [href]="p.url" target="_blank" rel="noopener"
+           class="ml-auto shrink-0 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-page transition-colors duration-150 hover:bg-white">
+          Abrir site ao vivo<span class="sr-only"> (abre em nova aba)</span>
+        </a>
+        <button type="button" (click)="fechar()" aria-label="Fechar visualização"
+                class="shrink-0 rounded-lg border border-line p-2 text-ink-2 transition-colors duration-150 hover:text-ink">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M3 3l10 10M13 3L3 13" />
+          </svg>
+        </button>
+      </header>
+      <div class="flex-1 overflow-y-auto overscroll-contain bg-card" tabindex="0" role="region"
+           aria-label="Captura da página inteira, role para ver tudo">
+        <img [src]="p.full" [alt]="'Captura da página inteira do site ' + p.nome"
+             [attr.width]="p.largura" [attr.height]="p.altura"
+             class="mx-auto block h-auto w-full max-w-[1280px]" />
+      </div>
+      <p class="border-t border-line px-4 py-2 text-xs text-ink-3">
+        Captura de tela. O site ao vivo pode ter mudado desde então.
+      </p>
+    </div>
+  }
+</dialog>

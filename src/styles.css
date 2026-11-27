@@ -4,14 +4,15 @@
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
 
-  --color-page: #0b0d14;
-  --color-card: #11141c;
-  --color-raised: #1a1e28;
-  --color-ink: #eef0f5;
-  --color-ink-2: #a3a9b8;
-  --color-ink-3: #7a8296;
-  --color-line: rgb(238 240 245 / 0.08);
-  --color-signal: #f0a93a;
+  --color-page: #04060d;
+  --color-card: #0a0e18;
+  --color-raised: #0f1524;
+  --color-ink: #eaf0fa;
+  --color-ink-2: #a5b1c6;
+  --color-ink-3: #7a8aa6;
+  --color-line: rgb(150 180 255 / 0.12);
+  --color-blue: #2f6bff;
+  --color-cyan: #22d3ee;
 
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -30,12 +31,15 @@
     line-height: 22px;
     -webkit-font-smoothing: antialiased;
   }
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
   ::selection {
-    background: var(--color-signal);
+    background: var(--color-cyan);
     color: var(--color-page);
   }
   :focus-visible {
-    outline: 2px solid var(--color-signal);
+    outline: 2px solid var(--color-cyan);
     outline-offset: 3px;
   }
   @media (prefers-reduced-motion: reduce) {
